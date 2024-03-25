@@ -5,9 +5,14 @@ import { CreateTodoCategoryDto } from "./dtos/create-todo-category.dto";
 import { serialize } from "class-transformer";
 import { Serialize } from "src/interceptors/serialize.interceptor";
 
-@Controller()
+@Controller("/todos")
 export class TodoController {
     constructor(private todoService: TodoService) { }
+
+    @Get()
+    async findAll() {
+        return await this.todoService.findAll();
+    }
 
     @Get('/:id')
     async findOne(@Param('id') id: string) {
