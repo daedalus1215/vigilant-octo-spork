@@ -10,12 +10,33 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+const todo_module_1 = require("./todo/todo.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const config_1 = require("@nestjs/config");
+const todo_category_schema_1 = require("./todo/entity/todo-category.schema");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: `.env.${process.env.NODE_ENV}`,
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                inject: [config_1.ConfigService],
+                useFactory: (config) => {
+                    return {
+                        type: 'mongodb',
+                        host: 'localhost',
+                        synchronize: false,
+                        entities: [todo_category_schema_1.TodoCategory]
+                    };
+                }
+            }),
+            todo_module_1.TodoModule
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
