@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { Todo } from "../entity/todo.entity";
+import { Todo } from "../entity/todo.schema";
 import { CreateTodoDto } from "./create-todo.dto";
 
 export class CreateTodoCategoryDto {
