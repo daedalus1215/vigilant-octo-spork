@@ -1,5 +1,4 @@
-import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Todo } from "./todo.entity";
+import { Todo } from "./todo.schema";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
@@ -7,6 +6,9 @@ export type TodoCategoryDocument = TodoCategory & Document;
 
 @Schema()
 export  class TodoCategory {
+    @Prop()
+    id:string;
+
     @Prop()
     name: string;
 
